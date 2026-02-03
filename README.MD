@@ -205,14 +205,3 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
-# Astro CLI / Astronomer
-.astro/
-logs/
-airflow.db
-
-# Dados brutos (Olist CSVs)
-include/data/
-
-#VS Code
-.vscode/
