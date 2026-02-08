@@ -1,17 +1,11 @@
 #Classe do Airflow para a criação de DAGs.
 from airflow import DAG
-#Operador para utilizar código Python em uma DAG. 
-from airflow.providers.standard.operators.python import PythonOperator
-#Operador para utilizar comandos SQL diretamente no DB PostgreSQL.
+#Operador para utilizar queries SQL na DAG. 
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 #Ferramenta que cria a conexão com o DB com segurança.
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 #Classe para trabalhar com horas.
 from datetime import datetime
-#Biblioteca para trabalhar com dados em tabelas (Data Frames).
-import pandas as pd
-#Módulo Python para interagir com o Sistema Operacional.
-import os
 
 #Variáveis de configuração.
 conn_id = 'postgres_default' #Conexão padrão do Astro CLI.
@@ -28,7 +22,7 @@ with DAG(
     conn_id=conn_id,
     sql="""CREATE SCHEMA IF NOT EXISTS silver;"""
     )
-    #Task 2.
+    #Task 2. Criação e limpeza da tabela "orders"
     create_silver_orders_table = SQLExecuteQueryOperator(
     task_id='create_silver_orders_table',
     conn_id='postgres_default',
@@ -84,6 +78,7 @@ with DAG(
         WHERE row_num = 1;
     """
     )
+    #Task 3. Criação e limpeza da tabela "orders_items"
     create_silver_orders_items_table = SQLExecuteQueryOperator(
     task_id='create_silver_orders_items_table',
     conn_id='postgres_default',
@@ -122,7 +117,7 @@ with DAG(
         WHERE row_num = 1;
     """
     )       
-
+    #Task 4. Criação e limpeza da tabela "products"
     create_silver_products_table = SQLExecuteQueryOperator(
     task_id='create_silver_products_table',
     conn_id='postgres_default',
@@ -161,7 +156,7 @@ with DAG(
         WHERE row_num = 1;
     """
     )
-    
+    #Task 5. Criação e limpeza da tabela "sellers"
     create_silver_sellers_table = SQLExecuteQueryOperator(
     task_id='create_silver_sellers_table',
     conn_id='postgres_default',

@@ -1,8 +1,8 @@
 #Classe do Airflow para a criação de DAGs.
 from airflow import DAG
-#Operador para utilizar código Python em uma DAG. 
+#Operador para utilizar código Python na DAG. 
 from airflow.providers.standard.operators.python import PythonOperator
-#Operador para utilizar comandos SQL diretamente no DB PostgreSQL.
+#Operador para utilizar queries SQL diretamente no DB PostgreSQL na DAG.
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 #Ferramenta que cria a conexão com o DB com segurança.
 from airflow.providers.postgres.hooks.postgres import PostgresHook
